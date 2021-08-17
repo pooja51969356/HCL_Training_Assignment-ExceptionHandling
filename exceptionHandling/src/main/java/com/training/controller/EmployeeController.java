@@ -38,12 +38,12 @@ public class EmployeeController {
 	
 	
 	
-	@GetMapping("/employeeName/{employeeName}")
+	@GetMapping("/employee-name/{employee-name}")
 	public List<EmployeeResponseDto> findByNameEquals(@PathVariable String name){
 		return employeeService.findByNameEquals(name);
 	}
 	
-	@GetMapping("/employeeId/{employeeId}")
+	@GetMapping("/employee-id/{employee-id}")
 	public List<EmployeeResponseDto> findByEmpId(@PathVariable  @Valid Long id){
 		return employeeService.findByEmpId(id);
 	}
@@ -60,12 +60,12 @@ public class EmployeeController {
 		
 	}
 	
-	@GetMapping("/stage/{startAge}/endage/{endAge}")
+	@GetMapping("/stage/{startage}/endage/{endage}")
 	public List<EmployeeResponseDto> findByAgeBetween(@PathVariable  @Valid Integer startAge, @PathVariable  @Valid Integer endAge){
 		return employeeService.findByAgeBetween(startAge, endAge);
 	}
 	
-	@GetMapping("/orderByEmployeeName/{employeeName}")
+	@GetMapping("/orderbyemployeename/{employeename}")
 	public List<EmployeeResponseDto> findByNameOrderByName(@PathVariable  @Valid String name){
 		return employeeService.findByNameOrderByName(name);
 	}

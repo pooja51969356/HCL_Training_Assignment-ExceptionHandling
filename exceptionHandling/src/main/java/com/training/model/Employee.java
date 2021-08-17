@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -31,6 +32,8 @@ public class Employee {
 	
 	@Min(value = 18, message = "Age should not be less than 18")
 	private Integer age;
+	
+	@Email
 	private String email;
 	
 	

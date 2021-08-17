@@ -44,29 +44,29 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employeeId/{employeeId}")
-	public List<EmployeeResponseDto> findByEmpId(@PathVariable Long id){
+	public List<EmployeeResponseDto> findByEmpId(@PathVariable  @Valid Long id){
 		return employeeService.findByEmpId(id);
 	}
 		
 	@GetMapping("/email/{email}/age/{age}")
-	public List<EmployeeResponseDto> findByEmailAndAge(@PathVariable String email,@PathVariable Integer age){
+	public List<EmployeeResponseDto> findByEmailAndAge(@PathVariable  @Valid String email,@PathVariable  @Valid Integer age){
 		return employeeService.findByEmailAndAge(email,age);
 		
 	}
 	
 	@GetMapping("/age/{age}")
-	public List<EmployeeResponseDto> findByAgeLessThan(@PathVariable Integer age){
+	public List<EmployeeResponseDto> findByAgeLessThan(@PathVariable  @Valid Integer age){
 		return employeeService.findByAgeLessThan(age);
 		
 	}
 	
 	@GetMapping("/stage/{startAge}/endage/{endAge}")
-	public List<EmployeeResponseDto> findByAgeBetween(@PathVariable Integer startAge, @PathVariable Integer endAge){
+	public List<EmployeeResponseDto> findByAgeBetween(@PathVariable  @Valid Integer startAge, @PathVariable  @Valid Integer endAge){
 		return employeeService.findByAgeBetween(startAge, endAge);
 	}
 	
 	@GetMapping("/orderByEmployeeName/{employeeName}")
-	public List<EmployeeResponseDto> findByNameOrderByName(@Validated   @PathVariable String name){
+	public List<EmployeeResponseDto> findByNameOrderByName(@PathVariable  @Valid String name){
 		return employeeService.findByNameOrderByName(name);
 	}
 	@GetMapping("/department")
@@ -74,7 +74,7 @@ public class EmployeeController {
 		return employeeService.findByExperienceIsNull();
 	}
 	@GetMapping("/orderbydepartment/{department}")
-	public List<EmployeeResponseDto> findByDepartmentOrderByDepartmentDesc(@PathVariable String branch){
+	public List<EmployeeResponseDto> findByDepartmentOrderByDepartmentDesc(@PathVariable  @Valid String branch){
 		return employeeService.findByDepartmentOrderByDepartmentDesc(branch);
 	}
 }

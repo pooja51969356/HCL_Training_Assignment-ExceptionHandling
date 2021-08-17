@@ -25,10 +25,10 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@PostMapping("/add")
-	public ResponseEntity<EmployeeResponseDto> addStudent(@Valid @RequestBody Employee student) throws MethodArgumentNotValidException{
+	@PostMapping("/employeeadd")
+	public ResponseEntity<EmployeeResponseDto> addStudent(@Valid @RequestBody Employee employee) throws MethodArgumentNotValidException{
 
-	 return ResponseEntity.ok(employeeService.save(student));
+	 return ResponseEntity.ok(employeeService.save(employee));
 	}
 	
 	/*

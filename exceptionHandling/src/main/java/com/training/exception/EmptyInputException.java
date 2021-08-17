@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmptyInputException extends RuntimeException{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2006170065688484122L;
 	private String errorCode;
 	private String errorMessage;
 	public EmptyInputException() {

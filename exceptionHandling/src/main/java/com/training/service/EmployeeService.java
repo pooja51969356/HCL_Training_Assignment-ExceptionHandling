@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.training.dto.EmployeeResponseDto;
+import com.training.exception.EmptyInputException;
 import com.training.exception.NoElementFoundException;
 import com.training.model.Employee;
 import com.training.repository.EmployeeRepository;
@@ -16,11 +18,15 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	public EmployeeResponseDto save(Employee employee) throws MethodArgumentNotValidException {
+	public EmployeeResponseDto save(Employee employee) {
 		Employee employeeDetails =employeeRepository.save(employee);
 	
-		return prepareEmployeeDetailForResponse(employeeDetails);
-	
+		
+		 if(employeeDetails!=null)	
+			 return  prepareEmployeeDetailForResponse(employeeDetails);
+			 else
+				 throw new EmptyInputException("606","Please check employee entry ");
+
 	}
 
 	
@@ -85,7 +91,7 @@ public class EmployeeService {
 			 if(emp!=null && !emp.isEmpty())	
 				 return  prepareEmployeeDetailForResponseList(emp);
 				 else
-					throw new IllegalArgumentException("Employee Record Not  Found For Experience!!!!!! ");
+					throw new NoElementFoundException("Employee Record Not  Found For Experience!!!!!! "," ");
 
 	}
 	public List<EmployeeResponseDto> findByDepartmentOrderByDepartmentDesc(String department) {
@@ -94,7 +100,7 @@ public class EmployeeService {
 			 if(emp!=null && !emp.isEmpty())	
 				 return  prepareEmployeeDetailForResponseList(emp);
 				 else
-					throw new IllegalArgumentException("Employee Record Not  Found For match : "+"department"+department);
+					throw new NoSuchElementException("Employee Record Not  Found For match department:"+department);
 
 	}
 
@@ -105,7 +111,7 @@ public class EmployeeService {
 			 if(emp!=null && !emp.isEmpty())	
 				 return  prepareEmployeeDetailForResponseList(emp);
 				 else
-					throw new IllegalArgumentException("Employee Record Not  Found For match : "+"id"+id);
+					throw new NoSuchElementException("Employee Record Not  Found For match : "+"id"+id);
 
 	   }
 	  

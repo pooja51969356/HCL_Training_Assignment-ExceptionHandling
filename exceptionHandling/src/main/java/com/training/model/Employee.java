@@ -27,13 +27,13 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long empId;
 	@Column
-	@NotEmpty(message = "Employee name should not empty")
+	@NotEmpty(message = "Employee name should not be empty")
 	private String name;
 	
 	@Min(value = 18, message = "Age should not be less than 18")
 	private Integer age;
 	
-	@Email
+	@Email(regexp ="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" , message = "email id should be in proper format")
 	private String email;
 	
 	

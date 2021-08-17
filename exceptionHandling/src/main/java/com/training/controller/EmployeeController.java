@@ -5,7 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +23,21 @@ import com.training.dto.EmployeeResponseDto;
 import com.training.model.Employee;
 import com.training.service.EmployeeService;
 
+
+
+
+@Validated
 @RestController
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
 	@PostMapping("/employeeadd")
-	public ResponseEntity<EmployeeResponseDto> addStudent(@Valid @RequestBody Employee employee ) throws MethodArgumentNotValidException{
-
-	 return ResponseEntity.ok(employeeService.save(employee));
+	public ResponseEntity<EmployeeResponseDto> addEmployee(@Valid @RequestBody Employee employee , Errors errors){
+		 if (errors.hasErrors()) {
+		        return new ResponseEntity<EmployeeResponseDto>(HttpStatus.BAD_REQUEST);
+		    }		
+		 return ResponseEntity.ok(employeeService.save(employee));
 	}
 	
 	/*
@@ -38,12 +47,15 @@ public class EmployeeController {
 	
 	
 	
-	@GetMapping("/employee-name/{employee-name}")
-	public List<EmployeeResponseDto> findByNameEquals(@PathVariable String name){
-		return employeeService.findByNameEquals(name);
+	@GetMapping("/employeeadd/employee/{name}")
+	public  ResponseEntity<List<EmployeeResponseDto>> findByNameEquals(@Valid @PathVariable String name){
+		if (name==null) {
+	        return new ResponseEntity<List<EmployeeResponseDto>>(HttpStatus.BAD_REQUEST);
+	    }		
+		  return ResponseEntity.ok(employeeService.findByNameEquals(name));
 	}
 	
-	@GetMapping("/employee-id/{employee-id}")
+	@GetMapping("/employee-id/{id}")
 	public List<EmployeeResponseDto> findByEmpId(@PathVariable  @Valid Long id){
 		return employeeService.findByEmpId(id);
 	}
@@ -55,7 +67,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/age/{age}")
-	public List<EmployeeResponseDto> findByAgeLessThan(@PathVariable  @Valid Integer age){
+	public List<EmployeeResponseDto> findByAgeLessThan(@PathVariable  @Valid Integer age ){
 		return employeeService.findByAgeLessThan(age);
 		
 	}
@@ -65,11 +77,11 @@ public class EmployeeController {
 		return employeeService.findByAgeBetween(startage, endage);
 	}
 	
-	@GetMapping("/orderbyemployeename/{employeename}")
+	@GetMapping("/orderbyemployeename/{name}")
 	public List<EmployeeResponseDto> findByNameOrderByName(@PathVariable  @Valid String name){
 		return employeeService.findByNameOrderByName(name);
 	}
-	@GetMapping("/department")
+	@GetMapping("/experience")
 	public List<EmployeeResponseDto> findByExperienceIsNull(){
 		return employeeService.findByExperienceIsNull();
 	}

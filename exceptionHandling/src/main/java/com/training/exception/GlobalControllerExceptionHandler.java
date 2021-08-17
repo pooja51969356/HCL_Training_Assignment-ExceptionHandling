@@ -25,11 +25,12 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
 	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders header ,HttpStatus status,WebRequest request){
 		List <String> details= new ArrayList<>();
-		for(ObjectError error : ex.getBindingResult().getAllErrors()) {
-			details.add(error.getDefaultMessage());
-		}
+		ErrorMessage message = new ErrorMessage(
+	            new Date(),
+	            "Invalid Arguments",
+	            request.getDescription(false),details);
 		
-		return new ResponseEntity<Object>(details, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 
 	}
 	

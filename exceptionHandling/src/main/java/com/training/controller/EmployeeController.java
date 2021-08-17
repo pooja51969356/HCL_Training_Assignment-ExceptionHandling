@@ -26,7 +26,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@PostMapping("/employeeadd")
-	public ResponseEntity<EmployeeResponseDto> addStudent(@Valid @RequestBody Employee employee) throws MethodArgumentNotValidException{
+	public ResponseEntity<EmployeeResponseDto> addStudent(@Valid @RequestBody Employee employee ) throws MethodArgumentNotValidException{
 
 	 return ResponseEntity.ok(employeeService.save(employee));
 	}
@@ -61,8 +61,8 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/stage/{startage}/endage/{endage}")
-	public List<EmployeeResponseDto> findByAgeBetween(@PathVariable  @Valid Integer startAge, @PathVariable  @Valid Integer endAge){
-		return employeeService.findByAgeBetween(startAge, endAge);
+	public List<EmployeeResponseDto> findByAgeBetween(@PathVariable  @Valid Integer startage, @PathVariable  @Valid Integer endage){
+		return employeeService.findByAgeBetween(startage, endage);
 	}
 	
 	@GetMapping("/orderbyemployeename/{employeename}")
@@ -74,8 +74,8 @@ public class EmployeeController {
 		return employeeService.findByExperienceIsNull();
 	}
 	@GetMapping("/orderbydepartment/{department}")
-	public List<EmployeeResponseDto> findByDepartmentOrderByDepartmentDesc(@PathVariable  @Valid String branch){
-		return employeeService.findByDepartmentOrderByDepartmentDesc(branch);
+	public List<EmployeeResponseDto> findByDepartmentOrderByDepartmentDesc(@PathVariable  @Valid String department){
+		return employeeService.findByDepartmentOrderByDepartmentDesc(department);
 	}
 }
 
